@@ -1,5 +1,5 @@
-import './categories.styles.scss';
-import Categories from './components/categories/categories.component';
+
+import Directories from './components/directory/directories.component';
 
 const App = () => {
 
@@ -33,7 +33,7 @@ const App = () => {
   
   return (
     <div className="categories-container">
-      <Categories categories={categories} />
+      <Directories categories={categories} />
     </div> 
   );
 }
