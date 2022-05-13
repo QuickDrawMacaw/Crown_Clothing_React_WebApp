@@ -1,6 +1,21 @@
+import { Routes, Route, Outlet } from "react-router";
+
 import Home from "./components/routes/home/home.component";
+import Navigation from "./components/routes/navigation/navigation.component";
+
+
+const Shop = () => {
+  return(<p>I am the Shop Page</p>)
+};
 
 const App = () => {
-  return <Home />
+  return (
+    <Routes>
+      <Route path='/' element={<Navigation/>}>
+        <Route index element={<Home/>}/>
+        <Route path='shop' element={<Shop />}/>
+      </Route>  
+    </Routes>
+  );
 }
 export default App;
