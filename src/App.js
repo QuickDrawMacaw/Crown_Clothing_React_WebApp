@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet } from "react-router";
+import { Routes, Route } from "react-router";
 
 import Home from "./components/routes/home/home.component";
 import Navigation from "./components/routes/navigation/navigation.component";
