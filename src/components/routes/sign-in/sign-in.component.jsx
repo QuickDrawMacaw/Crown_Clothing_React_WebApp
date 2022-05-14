@@ -11,6 +11,10 @@ import SignUpForm from '../../sign-up-form/sign-up-form.component';
 
 const SignIn = () => {
 
+
+    /*Note:
+    Warning: useEffect must not return anything besides a function, which is used for clean-up. It looks like you wrote useEffect(async () => ...) or returned a Promise. Instead, write the async function inside your effect and call it immediately
+    */
     useEffect(() => {
         (async () => {
             const response = await getRedirectResult(auth);
