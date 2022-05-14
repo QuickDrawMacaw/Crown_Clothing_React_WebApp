@@ -1,82 +1,86 @@
-
-import { initializeApp } from 'firebase/app'
-
-import {
-    getAuth,
-    signInWithRedirect,
-    signInWithPopup,
-    GoogleAuthProvider,
-    createUserWithEmailAndPassword
-} from 'firebase/auth'
+import { initializeApp } from "firebase/app";
 
 import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc
-} from 'firebase/firestore'
+  getAuth,
+  signInWithRedirect,
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore";
 
 const firebaseConfig = {
+  apiKey: "AIzaSyAjm_i9nlfAuQpHcuEjFEOxpo6YdtQMJdU",
 
-    apiKey: "AIzaSyAjm_i9nlfAuQpHcuEjFEOxpo6YdtQMJdU",
-  
-    authDomain: "crwn-clothing-db-e0dc5.firebaseapp.com",
-  
-    projectId: "crwn-clothing-db-e0dc5",
-  
-    storageBucket: "crwn-clothing-db-e0dc5.appspot.com",
-  
-    messagingSenderId: "608686098326",
-  
-    appId: "1:608686098326:web:fdc8fa9c32e760413f3fb7"
-  
-  };
+  authDomain: "crwn-clothing-db-e0dc5.firebaseapp.com",
 
-  const firebaseApp = initializeApp(firebaseConfig);
+  projectId: "crwn-clothing-db-e0dc5",
 
-  const googleProvider = new GoogleAuthProvider();
+  storageBucket: "crwn-clothing-db-e0dc5.appspot.com",
 
-  googleProvider.setCustomParameters({
-    prompt: "select_account"
-  });
+  messagingSenderId: "608686098326",
 
-  export const auth = getAuth();
-  export const signInWithGooglePopup = () => signInWithPopup(auth, googleProvider);
-  export const signInWithGoogleRedirect = () => signInWithRedirect(auth, googleProvider);
-  export const db = getFirestore();
+  appId: "1:608686098326:web:fdc8fa9c32e760413f3fb7",
+};
 
-  export const createUserDocumentFromAuth = async(userAuth, additionalInformation = {displayName: ''}) => {
-    if(!userAuth) return;
+const firebaseApp = initializeApp(firebaseConfig);
 
-    const userDocRef = doc(db, 'users', userAuth.uid);
+const googleProvider = new GoogleAuthProvider();
 
-    console.log(userDocRef);
+googleProvider.setCustomParameters({
+  prompt: "select_account",
+});
 
-    const userSnapShot = await getDoc(userDocRef);
-    console.log(userSnapShot);
-    console.log(userSnapShot.exists());
+export const auth = getAuth();
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
+export const signInWithGoogleRedirect = () =>
+  signInWithRedirect(auth, googleProvider);
+export const db = getFirestore();
 
-    if(!userSnapShot.exists()){
-      const { displayName, email } = userAuth;
-      const createdAt = new Date();
-      
-      try {
-        await setDoc(userDocRef, {
-          displayName,
-          email,
-          createdAt,
-          ...additionalInformation,
-        });
-      } catch (error) {
-        console.log('error creating the user', error.message);
-      }
+export const createUserDocumentFromAuth = async (
+  userAuth,
+  additionalInformation = { displayName: "" }
+) => {
+  if (!userAuth) return;
+
+  const userDocRef = doc(db, "users", userAuth.uid);
+
+  console.log(userDocRef);
+
+  const userSnapShot = await getDoc(userDocRef);
+  console.log(userSnapShot);
+  console.log(userSnapShot.exists());
+
+  if (!userSnapShot.exists()) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await setDoc(userDocRef, {
+        displayName,
+        email,
+        createdAt,
+        ...additionalInformation,
+      });
+    } catch (error) {
+      console.log("error creating the user", error.message);
     }
-    
-    return userDocRef;
   }
 
-  export const createAuthUserWithEmailAndPassword = async (email, password) => {
-    if(!email || !password) return;
-    
-    return await createUserWithEmailAndPassword(auth, email, password);
-  }
+  return userDocRef;
+};
+
+export const createAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await createUserWithEmailAndPassword(auth, email, password);
+};
+
+export const signInAuthUserWithEmailAndPassword = async (email, password) => {
+  if (!email || !password) return;
+
+  return await signInWithEmailAndPassword(auth, email, password);
+};
