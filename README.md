@@ -1,3 +1,3 @@
-#The Crown Clothing/Apparel website is live!
+The Crown Clothing/Apparel website is live!
 
-#https://exquisite-sorbet-405001.netlify.app/
+https://exquisite-sorbet-405001.netlify.app/
